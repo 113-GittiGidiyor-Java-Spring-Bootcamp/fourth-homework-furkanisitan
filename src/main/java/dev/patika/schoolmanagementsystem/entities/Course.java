@@ -54,6 +54,8 @@ public class Course extends Entity<Long> {
     //endregion
 
     //region utility methods
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private transient CourseUtility utility;
 
     @PostConstruct

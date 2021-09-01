@@ -40,6 +40,8 @@ public class Student extends Entity<Long> {
     private Set<Course> courses = new HashSet<>();
 
     //region utility methods
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private transient StudentUtility utility;
 
     @PostConstruct

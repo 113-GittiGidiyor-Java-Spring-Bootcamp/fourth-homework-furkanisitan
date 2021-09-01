@@ -50,8 +50,9 @@ public class Instructor extends Entity<Long> {
     }
     //endregion
 
-
     //region utility methods
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private transient InstructorUtility utility;
 
     @PostConstruct
