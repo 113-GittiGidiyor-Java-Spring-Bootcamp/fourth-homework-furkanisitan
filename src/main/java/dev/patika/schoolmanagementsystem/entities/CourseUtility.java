@@ -1,6 +1,6 @@
 package dev.patika.schoolmanagementsystem.entities;
 
-import dev.patika.schoolmanagementsystem.entities.abtracts.EntityUtility;
+import dev.patika.schoolmanagementsystem.core.entities.EntityUtility;
 import org.springframework.util.Assert;
 
 public class CourseUtility extends EntityUtility<Course> {
@@ -10,6 +10,7 @@ public class CourseUtility extends EntityUtility<Course> {
     }
 
     //region students
+
     /**
      * Adds the given student to this course.
      *

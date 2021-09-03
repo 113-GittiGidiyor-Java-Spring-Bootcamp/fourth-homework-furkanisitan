@@ -1,4 +1,4 @@
-package dev.patika.schoolmanagementsystem.entities.abtracts;
+package dev.patika.schoolmanagementsystem.core.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

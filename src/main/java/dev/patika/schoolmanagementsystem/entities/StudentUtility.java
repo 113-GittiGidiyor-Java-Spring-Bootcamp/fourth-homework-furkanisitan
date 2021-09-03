@@ -1,6 +1,6 @@
 package dev.patika.schoolmanagementsystem.entities;
 
-import dev.patika.schoolmanagementsystem.entities.abtracts.EntityUtility;
+import dev.patika.schoolmanagementsystem.core.entities.EntityUtility;
 import org.springframework.util.Assert;
 
 public class StudentUtility extends EntityUtility<Student> {

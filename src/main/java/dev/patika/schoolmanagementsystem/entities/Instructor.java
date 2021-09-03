@@ -1,6 +1,6 @@
 package dev.patika.schoolmanagementsystem.entities;
 
-import dev.patika.schoolmanagementsystem.entities.abtracts.Entity;
+import dev.patika.schoolmanagementsystem.core.entities.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
