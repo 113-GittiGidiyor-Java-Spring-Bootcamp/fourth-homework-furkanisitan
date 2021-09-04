@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,17 +29,18 @@ public class FilterCriteria {
 
     /**
      * Processes {@code filter} parameter according to {@code regex} and converts it to {@link FilterCriteria} list.
+     * Returns an empty list if {@code filter} or {@code regex} is empty,
      *
-     * @param filter a text containing the filter parameters.
+     * @param filter a text containing filter parameters.
      * @param regex  a regular expression to match to convert text to a {@link FilterCriteria} object.
      * @return a list of {@link FilterCriteria}.
      * @throws InvalidFilterFormatException      if all the text of the filter does not match the regex.
      * @throws UnsupportedOperationTypeException if any unsupported operation type inside the filter.
-     * @throws IllegalArgumentException          if filter or regex is {@literal null}.
      */
     public static List<FilterCriteria> valueOf(String filter, String regex) {
-        Assert.notNull(filter, "text must not be null");
-        Assert.notNull(regex, "regex must not be null");
+
+        if (!StringUtils.hasLength(filter) || !StringUtils.hasLength(regex))
+            return new ArrayList<>();
 
         Pattern one = Pattern.compile(regex, Pattern.UNICODE_CHARACTER_CLASS);
         Pattern all = Pattern.compile("(" + regex + ")+", Pattern.UNICODE_CHARACTER_CLASS);
