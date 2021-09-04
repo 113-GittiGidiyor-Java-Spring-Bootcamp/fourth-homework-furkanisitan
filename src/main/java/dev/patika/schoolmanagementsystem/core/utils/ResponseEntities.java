@@ -1,4 +1,4 @@
-package dev.patika.schoolmanagementsystem.utils;
+package dev.patika.schoolmanagementsystem.core.utils;
 
 import dev.patika.schoolmanagementsystem.core.constants.ResponseMessages;
 import dev.patika.schoolmanagementsystem.core.results.DataResult;

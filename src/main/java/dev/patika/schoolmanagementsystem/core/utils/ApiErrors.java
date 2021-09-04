@@ -1,4 +1,4 @@
-package dev.patika.schoolmanagementsystem.utils;
+package dev.patika.schoolmanagementsystem.core.utils;
 
 import org.springframework.data.util.Pair;
 
