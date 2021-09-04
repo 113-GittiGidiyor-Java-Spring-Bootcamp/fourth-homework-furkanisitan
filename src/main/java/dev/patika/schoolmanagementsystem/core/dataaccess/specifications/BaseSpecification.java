@@ -1,6 +1,6 @@
 package dev.patika.schoolmanagementsystem.core.dataaccess.specifications;
 
-import dev.patika.schoolmanagementsystem.core.dataaccess.criteria.FilterCriteria;
+import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.criteria.FilterCriteria;
 import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.exceptions.InvalidFieldException;
 import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.exceptions.InvalidValueException;
 import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.exceptions.UnsupportedOperationTypeException;
@@ -33,7 +33,7 @@ public abstract class BaseSpecification<T> implements Specification<T> {
     @Override
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
 
-        Class fieldType = null;
+        Class fieldType;
 
         // Check if the field is valid.
         try {

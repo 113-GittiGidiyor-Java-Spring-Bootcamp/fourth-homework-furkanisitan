@@ -1,7 +1,7 @@
 package dev.patika.schoolmanagementsystem.core.dataaccess.specifications.exceptions;
 
-import dev.patika.schoolmanagementsystem.core.dataaccess.criteria.FilterCriteria;
 import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.BaseSpecification;
+import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.criteria.FilterCriteria;
 import lombok.Getter;
 
 /**

@@ -1,8 +1,8 @@
 package dev.patika.schoolmanagementsystem.core.dataaccess.specifications.exceptions;
 
 import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.BaseSpecification;
-import dev.patika.schoolmanagementsystem.core.dataaccess.criteria.FilterCriteria;
-import dev.patika.schoolmanagementsystem.core.dataaccess.criteria.OperationType;
+import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.criteria.FilterCriteria;
+import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.criteria.OperationType;
 import lombok.Getter;
 
 /**
@@ -23,6 +23,16 @@ public class UnsupportedOperationTypeException extends RuntimeException {
     public UnsupportedOperationTypeException(OperationType operationType) {
         super(String.format("The '%s' operator is an unsupported operation type.", operationType.getShortcut()));
         this.operationType = operationType;
+    }
+
+    /**
+     * Constructs an {@link UnsupportedOperationTypeException}.
+     *
+     * @param operationTypeShortcut unsupported operation type shortcut.
+     */
+    public UnsupportedOperationTypeException(String operationTypeShortcut) {
+        super(String.format("The '%s' operator is an unsupported operation type.", operationTypeShortcut));
+        this.operationType = null;
     }
 }
 

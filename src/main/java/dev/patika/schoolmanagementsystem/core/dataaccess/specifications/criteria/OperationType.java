@@ -1,4 +1,4 @@
-package dev.patika.schoolmanagementsystem.core.dataaccess.criteria;
+package dev.patika.schoolmanagementsystem.core.dataaccess.specifications.criteria;
 
 /**
  * The query types for the {@link org.springframework.data.jpa.domain.Specification}.
