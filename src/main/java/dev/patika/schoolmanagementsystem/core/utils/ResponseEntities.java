@@ -7,7 +7,13 @@ import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Collections;
+
 public class ResponseEntities {
+
+    public static <T> ResponseEntity<DataResult<T>> okDataResult(T data) {
+        return ResponseEntity.ok(DataResult.<T>builder().message(ResponseMessages.OK).payload(data).build());
+    }
 
     @SafeVarargs
     public static ResponseEntity<Result> notFoundResult(String name, Pair<String, Object>... parameters) {
@@ -18,6 +24,6 @@ public class ResponseEntities {
     @SafeVarargs
     public static <T> ResponseEntity<DataResult<T>> notFoundDataResult(String name, Pair<String, Object>... parameters) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(DataResult.<T>builder().message(ResponseMessages.NOT_FOUND).errors(ApiErrors.notFound(name, parameters)).build());
+                .body(DataResult.<T>builder().message(ResponseMessages.NOT_FOUND).errors(Collections.singletonList(ApiErrors.notFound(name, parameters))).build());
     }
 }
