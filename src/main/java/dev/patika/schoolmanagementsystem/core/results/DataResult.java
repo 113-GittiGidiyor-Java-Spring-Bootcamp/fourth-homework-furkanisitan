@@ -3,16 +3,16 @@ package dev.patika.schoolmanagementsystem.core.results;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.Arrays;
+import java.util.List;
 
 @Getter
 public class DataResult<T> extends Result {
 
-    private final T data;
+    private final T payload;
 
     @Builder
-    public DataResult(T data, boolean success, String message, String... errors) {
-        super(success, message, Arrays.asList(errors));
-        this.data = data;
+    public DataResult(boolean success, String message, List<String> errors, T payload) {
+        super(success, message, errors);
+        this.payload = payload;
     }
 }
