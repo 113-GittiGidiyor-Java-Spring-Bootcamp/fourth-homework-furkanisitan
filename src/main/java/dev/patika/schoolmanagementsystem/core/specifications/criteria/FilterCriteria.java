@@ -1,11 +1,12 @@
 package dev.patika.schoolmanagementsystem.core.specifications.criteria;
 
 import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidFilterFormatException;
-import dev.patika.schoolmanagementsystem.core.specifications.exceptions.UnsupportedOperationTypeException;
+import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidOperationTypeShortcutException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Contains the required fields for queries that will be built using the {@link org.springframework.data.jpa.domain.Specification}.
+ * Contains the required fields for queries that will be built using the {@link Specification}.
  */
 
 @Getter
@@ -34,8 +35,8 @@ public class FilterCriteria {
      * @param filter a text containing filter parameters.
      * @param regex  a regular expression to match to convert text to a {@link FilterCriteria} object.
      * @return a list of {@link FilterCriteria}.
-     * @throws InvalidFilterFormatException      if all the text of the filter does not match the regex.
-     * @throws UnsupportedOperationTypeException if any unsupported operation type inside the filter.
+     * @throws InvalidFilterFormatException          if all the text of the filter does not match the regex.
+     * @throws InvalidOperationTypeShortcutException if any unsupported operation type inside the filter.
      */
     public static List<FilterCriteria> valueOf(String filter, String regex) {
 
@@ -54,11 +55,8 @@ public class FilterCriteria {
 
             while (matcher.find()) {
                 OperationType operationType = OperationType.valueOfShortcut(matcher.group(2));
-                if (operationType == null)
-                    throw new UnsupportedOperationTypeException(matcher.group(2));
                 criteria.add(new FilterCriteria(matcher.group(1), operationType, matcher.group(3)));
             }
-
             return criteria;
         } else {
             throw new InvalidFilterFormatException(filter);

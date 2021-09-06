@@ -1,5 +1,7 @@
 package dev.patika.schoolmanagementsystem.core.specifications.criteria;
 
+import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidOperationTypeShortcutException;
+
 /**
  * The query types for the {@link org.springframework.data.jpa.domain.Specification}.
  */
@@ -45,7 +47,7 @@ public enum OperationType {
             case "ct":
                 return OperationType.CONTAINS;
             default:
-                return null;
+                throw new InvalidOperationTypeShortcutException(shortcut);
         }
     }
 }

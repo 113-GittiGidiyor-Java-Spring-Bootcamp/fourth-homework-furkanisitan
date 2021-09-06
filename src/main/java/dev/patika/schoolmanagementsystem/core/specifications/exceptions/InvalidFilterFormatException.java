@@ -4,12 +4,12 @@ import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCrit
 import lombok.Getter;
 
 /**
- * Thrown to indicate that the {@code filter} given to the {@link FilterCriteria#valueOf(String filter, String regex)} method
- * does not match the {@code regex}.
+ * Thrown to indicate that the {@code filter} given to the {@link FilterCriteria#valueOf(String filter, String regex)}
+ * method does not match the {@code regex}.
  */
 
 @Getter
-public class InvalidFilterFormatException extends RuntimeException {
+public class InvalidFilterFormatException extends InvalidFilterException {
 
     private final String filter;
 

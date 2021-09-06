@@ -1,9 +1,8 @@
 package dev.patika.schoolmanagementsystem.core.specifications;
 
 import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCriteria;
-import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidFieldException;
-import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidValueException;
-import dev.patika.schoolmanagementsystem.core.specifications.exceptions.UnsupportedOperationTypeException;
+import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidFilterCriteriaException;
+import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidFilterException;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -39,7 +38,7 @@ public abstract class BaseSpecification<T> implements Specification<T> {
         try {
             fieldType = root.get(criteria.getField()).getJavaType();
         } catch (IllegalArgumentException e) {
-            throw new InvalidFieldException(criteria.getField());
+            throw new InvalidFilterCriteriaException(criteria.getField());
         }
 
         try {
@@ -66,12 +65,12 @@ public abstract class BaseSpecification<T> implements Specification<T> {
                 case LESS_THAN_OR_EQUAL:
                     return criteriaBuilder.lessThanOrEqualTo(root.get(criteria.getField()), value);
                 default:
-                    throw new UnsupportedOperationTypeException(criteria.getOperationType());
+                    throw new InvalidFilterCriteriaException(criteria.getOperationType());
             }
         }
         // IllegalArgumentException => enum or number exception
         catch (IllegalArgumentException | DateTimeParseException e) {
-            throw new InvalidValueException(criteria.getField(), criteria.getValue());
+            throw new InvalidFilterCriteriaException(criteria.getField(), criteria.getValue());
         }
     }
 
