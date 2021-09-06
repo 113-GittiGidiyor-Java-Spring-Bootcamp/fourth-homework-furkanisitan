@@ -1,7 +1,7 @@
-package dev.patika.schoolmanagementsystem.core.dataaccess.specifications.criteria;
+package dev.patika.schoolmanagementsystem.core.specifications.criteria;
 
-import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.exceptions.InvalidFilterFormatException;
-import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.exceptions.UnsupportedOperationTypeException;
+import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidFilterFormatException;
+import dev.patika.schoolmanagementsystem.core.specifications.exceptions.UnsupportedOperationTypeException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

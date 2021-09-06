@@ -1,9 +1,9 @@
-package dev.patika.schoolmanagementsystem.core.dataaccess.specifications;
+package dev.patika.schoolmanagementsystem.core.specifications;
 
-import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.criteria.FilterCriteria;
-import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.exceptions.InvalidFieldException;
-import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.exceptions.InvalidValueException;
-import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.exceptions.UnsupportedOperationTypeException;
+import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCriteria;
+import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidFieldException;
+import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidValueException;
+import dev.patika.schoolmanagementsystem.core.specifications.exceptions.UnsupportedOperationTypeException;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
