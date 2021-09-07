@@ -9,15 +9,15 @@ public interface StudentService {
     /**
      * Returns all students as {@link List<StudentDto>}.
      *
-     * @return all students.
+     * @return a {@link List<StudentDto>}.
      */
     List<StudentDto> findAll();
 
     /**
-     * Returns all students by filter as {@link List<StudentDto>}.
+     * Returns all students as {@link List<StudentDto>} by {@literal filter}.
      *
      * @param filter a text containing filter parameters.
-     * @return all students by filter.
+     * @return a {@link List<StudentDto>} by {@literal filter}.
      */
     List<StudentDto> findAll(String filter);
 }

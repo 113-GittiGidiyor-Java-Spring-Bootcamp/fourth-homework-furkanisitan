@@ -4,11 +4,10 @@ import dev.patika.schoolmanagementsystem.business.StudentService;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
 import dev.patika.schoolmanagementsystem.core.results.DataResult;
 import dev.patika.schoolmanagementsystem.core.utils.ResponseEntities;
+import dev.patika.schoolmanagementsystem.entities.Student;
+import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;

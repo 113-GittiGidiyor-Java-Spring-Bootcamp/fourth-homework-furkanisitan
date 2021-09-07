@@ -44,4 +44,9 @@ public class StudentManager implements StudentService {
 
         return StudentMapper.INSTANCE.toStudentDtoList(repository.findAll(spec));
     }
+
+    @Override
+    public StudentDto findById(Long id) {
+        return StudentMapper.INSTANCE.toStudentDto(repository.findById(id).orElse(null));
+    }
 }
