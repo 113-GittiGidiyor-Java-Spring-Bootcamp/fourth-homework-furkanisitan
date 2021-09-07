@@ -3,6 +3,7 @@ package dev.patika.schoolmanagementsystem.api.controllers;
 import dev.patika.schoolmanagementsystem.business.StudentService;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
 import dev.patika.schoolmanagementsystem.core.results.DataResult;
+import dev.patika.schoolmanagementsystem.core.results.Result;
 import dev.patika.schoolmanagementsystem.core.utils.ResponseEntities;
 import dev.patika.schoolmanagementsystem.entities.Student;
 import org.springframework.data.util.Pair;
@@ -25,5 +26,21 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<DataResult<List<StudentDto>>> getAll(@RequestParam Optional<String> filter) {
         return ResponseEntities.okDataResult(studentService.findAll(filter.orElse(null)));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DataResult<StudentDto>> getById(@PathVariable long id) {
+
+        StudentDto studentDto = studentService.findById(id);
+        return studentDto == null ?
+                ResponseEntities.notFoundDataResult(Student.class.getSimpleName(), Pair.of("id", id)) :
+                ResponseEntities.okDataResult(studentDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Result> deleteById(@PathVariable long id) {
+
+        studentService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
