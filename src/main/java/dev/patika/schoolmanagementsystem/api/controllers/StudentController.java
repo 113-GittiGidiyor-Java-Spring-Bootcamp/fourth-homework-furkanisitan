@@ -45,6 +45,13 @@ public class StudentController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping
+    public ResponseEntity<Result> deleteAllByName(@RequestParam String name) {
+
+        studentService.deleteAllByName(name);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/gender-counts")
     public ResponseEntity<DataResult<List<StudentGroupByGenderResponse>>> getGenderCounts(@RequestParam Optional<String> filter) {
         return ResponseEntities.okDataResult(studentService.countAndGroupByGender());

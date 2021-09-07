@@ -63,6 +63,12 @@ public class StudentManager implements StudentService {
         repository.deleteById(id);
     }
 
+    @Transactional
+    @Override
+    public void deleteAllByName(String name) {
+        repository.deleteAllByName(name);
+    }
+
     @Override
     public List<StudentGroupByGenderResponse> countAndGroupByGender() {
         return repository.countGender();

@@ -39,6 +39,12 @@ public interface StudentService {
      */
     void deleteById(Long id);
 
+    /**
+     * Deletes all students by {@literal name}.
+     *
+     * @param name student name to delete.
+     */
+    void deleteAllByName(String name);
 
     /**
      * Returns a list of {@link StudentGroupByGenderResponse} grouped by gender.

@@ -14,4 +14,6 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
 
     @Query("select s.gender as gender, count(s) as count from Student s group by s.gender")
     List<StudentGroupByGenderResponse> countGender();
+
+    void deleteAllByName(String name);
 }
