@@ -1,6 +1,6 @@
 package dev.patika.schoolmanagementsystem.business.helpers;
 
-import dev.patika.schoolmanagementsystem.core.dataaccess.specifications.criteria.FilterCriteria;
+import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCriteria;
 
 import java.util.List;
 
