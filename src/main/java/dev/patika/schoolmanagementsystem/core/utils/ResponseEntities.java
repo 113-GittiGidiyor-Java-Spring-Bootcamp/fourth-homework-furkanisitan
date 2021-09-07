@@ -12,7 +12,7 @@ import java.util.Collections;
 public class ResponseEntities {
 
     public static <T> ResponseEntity<DataResult<T>> okDataResult(T data) {
-        return ResponseEntity.ok(DataResult.<T>builder().message(ResponseMessages.OK).payload(data).build());
+        return ResponseEntity.ok(DataResult.<T>builder().message(ResponseMessages.OK).payload(data).success(true).build());
     }
 
     @SafeVarargs
