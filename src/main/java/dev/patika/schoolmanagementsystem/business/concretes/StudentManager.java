@@ -8,6 +8,7 @@ import dev.patika.schoolmanagementsystem.business.validators.StudentValidator;
 import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
 import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCriteria;
 import dev.patika.schoolmanagementsystem.dataaccess.StudentRepository;
+import dev.patika.schoolmanagementsystem.dataaccess.dtos.StudentGroupByGenderResponse;
 import dev.patika.schoolmanagementsystem.dataaccess.specifications.StudentSpecification;
 import dev.patika.schoolmanagementsystem.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,11 @@ public class StudentManager implements StudentService {
         validateExistsById(id);
 
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<StudentGroupByGenderResponse> countAndGroupByGender() {
+        return repository.countGender();
     }
 
     //region validators

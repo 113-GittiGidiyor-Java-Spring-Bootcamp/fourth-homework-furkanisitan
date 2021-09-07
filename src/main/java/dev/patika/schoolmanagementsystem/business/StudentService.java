@@ -2,6 +2,7 @@ package dev.patika.schoolmanagementsystem.business;
 
 import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
 import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
+import dev.patika.schoolmanagementsystem.dataaccess.dtos.StudentGroupByGenderResponse;
 
 import java.util.List;
 
@@ -38,4 +39,11 @@ public interface StudentService {
      */
     void deleteById(Long id);
 
+
+    /**
+     * Returns a list of {@link StudentGroupByGenderResponse} grouped by gender.
+     *
+     * @return a {@link List<StudentGroupByGenderResponse>}.
+     */
+    List<StudentGroupByGenderResponse> countAndGroupByGender();
 }

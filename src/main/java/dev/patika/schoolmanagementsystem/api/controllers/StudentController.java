@@ -5,6 +5,7 @@ import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
 import dev.patika.schoolmanagementsystem.core.results.DataResult;
 import dev.patika.schoolmanagementsystem.core.results.Result;
 import dev.patika.schoolmanagementsystem.core.utils.ResponseEntities;
+import dev.patika.schoolmanagementsystem.dataaccess.dtos.StudentGroupByGenderResponse;
 import dev.patika.schoolmanagementsystem.entities.Student;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +43,10 @@ public class StudentController {
 
         studentService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/gender-counts")
+    public ResponseEntity<DataResult<List<StudentGroupByGenderResponse>>> getGenderCounts(@RequestParam Optional<String> filter) {
+        return ResponseEntities.okDataResult(studentService.countAndGroupByGender());
     }
 }
