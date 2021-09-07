@@ -53,6 +53,7 @@ public class StudentManager implements StudentService {
         return StudentMapper.INSTANCE.toStudentDto(repository.findById(id).orElse(null));
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
 
