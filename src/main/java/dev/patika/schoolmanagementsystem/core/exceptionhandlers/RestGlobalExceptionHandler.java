@@ -1,9 +1,7 @@
 package dev.patika.schoolmanagementsystem.core.exceptionhandlers;
 
 import dev.patika.schoolmanagementsystem.core.constants.ResponseMessages;
-import dev.patika.schoolmanagementsystem.core.exceptions.NotAllowedFilterCriteriaException;
-import dev.patika.schoolmanagementsystem.core.exceptions.CustomValidationException;
-import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
+import dev.patika.schoolmanagementsystem.core.exceptions.*;
 import dev.patika.schoolmanagementsystem.core.results.Result;
 import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidFilterException;
 import org.springframework.http.HttpStatus;
@@ -34,6 +32,20 @@ public class RestGlobalExceptionHandler {
     @ResponseBody
     Result handleCustomValidationException(CustomValidationException e) {
         return Result.fail(ResponseMessages.ERR_VALIDATION, e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(UniqueConstraintViolationException.class)
+    @ResponseBody
+    Result handleUniqueConstraintViolationException(UniqueConstraintViolationException e) {
+        return Result.fail(ResponseMessages.ERR_UNIQUE_CONSTRAINT, e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(ForeignKeyConstraintViolationException.class)
+    @ResponseBody
+    Result handleForeignKeyConstraintViolationException(ForeignKeyConstraintViolationException e) {
+        return Result.fail(ResponseMessages.ERR_FOREIGN_KEY_CONSTRAINT, e.getMessage());
     }
 
 }

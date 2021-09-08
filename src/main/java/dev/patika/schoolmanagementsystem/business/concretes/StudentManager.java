@@ -24,7 +24,7 @@ import java.util.List;
 
 @Transactional(readOnly = true)
 @Service
-public class StudentManager implements StudentService {
+class StudentManager implements StudentService {
 
     private final StudentRepository repository;
 
