@@ -1,9 +1,12 @@
-package dev.patika.schoolmanagementsystem.core.exceptionhandlers;
+package dev.patika.schoolmanagementsystem.api.exceptionhandlers;
 
+import dev.patika.schoolmanagementsystem.business.ExceptionLogService;
+import dev.patika.schoolmanagementsystem.business.dtos.ExceptionLogCreateDto;
 import dev.patika.schoolmanagementsystem.core.constants.ResponseMessages;
 import dev.patika.schoolmanagementsystem.core.exceptions.*;
 import dev.patika.schoolmanagementsystem.core.results.Result;
 import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidFilterException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +15,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class RestGlobalExceptionHandler {
+
+    private final ExceptionLogService exceptionLogService;
+
+    @Autowired
+    public RestGlobalExceptionHandler(ExceptionLogService exceptionLogService) {
+        this.exceptionLogService = exceptionLogService;
+    }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotExistsException.class)
@@ -31,6 +41,7 @@ public class RestGlobalExceptionHandler {
     @ExceptionHandler(CustomValidationException.class)
     @ResponseBody
     Result handleCustomValidationException(CustomValidationException e) {
+        exceptionLogService.create(new ExceptionLogCreateDto(e.getClass().getSimpleName(), e.getMessage()));
         return Result.fail(ResponseMessages.ERR_VALIDATION, e.getMessage());
     }
 
@@ -38,6 +49,8 @@ public class RestGlobalExceptionHandler {
     @ExceptionHandler(UniqueConstraintViolationException.class)
     @ResponseBody
     Result handleUniqueConstraintViolationException(UniqueConstraintViolationException e) {
+
+        exceptionLogService.create(new ExceptionLogCreateDto(e.getClass().getSimpleName(), e.getMessage()));
         return Result.fail(ResponseMessages.ERR_UNIQUE_CONSTRAINT, e.getMessage());
     }
 

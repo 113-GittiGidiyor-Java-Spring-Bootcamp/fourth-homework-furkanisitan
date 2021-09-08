@@ -45,13 +45,9 @@ class CourseManager implements CourseService {
 
     @Override
     public List<CourseDto> findAll(String filter) {
+
         List<FilterCriteria> criteria = FilterCriteriaHelper.from(filter);
-        if (criteria.isEmpty()) return findAll();
-
-        Specification<Course> spec = Specification.where(generateCourseSpecification(criteria.get(0)));
-
-        for (int i = 1; i < criteria.size(); i++)
-            spec.and(generateCourseSpecification(criteria.get(i)));
+        Specification<Course> spec = generateCourseSpecification(criteria);
 
         return CourseMapper.INSTANCE.toCourseDtoList(repository.findAll(spec));
     }
@@ -122,8 +118,17 @@ class CourseManager implements CourseService {
     }
 
     //region utils
-    private CourseSpecification generateCourseSpecification(FilterCriteria criteria) {
-        return new CourseSpecification(FilterCriteriaValidator.validateFilterCriteria(criteria, CourseValidator.filterCriteriaPermissions));
+    private Specification<Course> generateCourseSpecification(List<FilterCriteria> criteria) {
+
+        if (criteria.isEmpty())
+            return null;
+
+        Specification<Course> spec = Specification.where(new CourseSpecification(FilterCriteriaValidator.validateFilterCriteria(criteria.get(0), CourseValidator.filterCriteriaPermissions)));
+
+        for (int i = 1; i < criteria.size(); i++)
+            spec.and(new CourseSpecification(FilterCriteriaValidator.validateFilterCriteria(criteria.get(i), CourseValidator.filterCriteriaPermissions)));
+
+        return spec;
     }
     //endregion
 

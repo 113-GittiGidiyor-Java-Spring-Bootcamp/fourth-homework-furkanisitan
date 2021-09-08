@@ -42,12 +42,7 @@ class StudentManager implements StudentService {
     public List<StudentDto> findAll(String filter) {
 
         List<FilterCriteria> criteria = FilterCriteriaHelper.from(filter);
-        if (criteria.isEmpty()) return findAll();
-
-        Specification<Student> spec = Specification.where(generateStudentSpecification(criteria.get(0)));
-
-        for (int i = 1; i < criteria.size(); i++)
-            spec.and(generateStudentSpecification(criteria.get(i)));
+        Specification<Student> spec = generateStudentSpecification(criteria);
 
         return StudentMapper.INSTANCE.toStudentDtoList(repository.findAll(spec));
     }
@@ -107,8 +102,17 @@ class StudentManager implements StudentService {
     }
 
     //region utils
-    private StudentSpecification generateStudentSpecification(FilterCriteria criteria) {
-        return new StudentSpecification(FilterCriteriaValidator.validateFilterCriteria(criteria, StudentValidator.filterCriteriaPermissions));
+    private Specification<Student> generateStudentSpecification(List<FilterCriteria> criteria) {
+
+        if (criteria.isEmpty())
+            return null;
+
+        Specification<Student> spec = Specification.where(new StudentSpecification(FilterCriteriaValidator.validateFilterCriteria(criteria.get(0), StudentValidator.filterCriteriaPermissions)));
+
+        for (int i = 1; i < criteria.size(); i++)
+            spec.and(new StudentSpecification(FilterCriteriaValidator.validateFilterCriteria(criteria.get(i), StudentValidator.filterCriteriaPermissions)));
+
+        return spec;
     }
     //endregion
 
