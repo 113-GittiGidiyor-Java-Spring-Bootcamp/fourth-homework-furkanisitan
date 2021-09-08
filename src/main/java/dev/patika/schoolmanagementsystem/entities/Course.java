@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -57,7 +56,7 @@ public class Course extends Entity<Long> {
     @Setter(AccessLevel.NONE)
     private transient CourseUtility utility;
 
-    @PostConstruct
+    @PostLoad
     private void initUtility() {
         utility = new CourseUtility(this);
     }

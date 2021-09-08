@@ -44,7 +44,7 @@ public class Student extends Entity<Long> {
     @Setter(AccessLevel.NONE)
     private transient StudentUtility utility;
 
-    @PostConstruct
+    @PostLoad
     private void initUtility() {
         utility = new StudentUtility(this);
     }

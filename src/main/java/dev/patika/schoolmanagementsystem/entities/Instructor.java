@@ -55,7 +55,7 @@ public class Instructor extends Entity<Long> {
     @Setter(AccessLevel.NONE)
     private transient InstructorUtility utility;
 
-    @PostConstruct
+    @PostLoad
     private void initUtility() {
         utility = new InstructorUtility(this);
     }
