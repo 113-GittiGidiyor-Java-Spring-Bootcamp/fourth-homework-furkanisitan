@@ -63,4 +63,17 @@ public interface CourseService {
      */
     void deleteAllByName(String name);
 
+    /**
+     * Adds student to course.
+     *
+     * @param courseId  the primary key of the course.
+     * @param studentId the primary key of the student.
+     */
+    void addStudent(Long courseId, Long studentId);
+
+    /**
+     * @param id the primary key of the entity.
+     * @return true if course exists by {@literal id}, otherwise false.
+     */
+    boolean existsById(Long id);
 }

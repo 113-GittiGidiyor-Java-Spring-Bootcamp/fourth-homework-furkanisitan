@@ -2,6 +2,7 @@ package dev.patika.schoolmanagementsystem.business.concretes;
 
 import dev.patika.schoolmanagementsystem.business.CourseService;
 import dev.patika.schoolmanagementsystem.business.InstructorService;
+import dev.patika.schoolmanagementsystem.business.StudentService;
 import dev.patika.schoolmanagementsystem.business.dtos.CourseCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.CourseDto;
 import dev.patika.schoolmanagementsystem.business.dtos.CourseUpdateDto;
@@ -16,6 +17,7 @@ import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCrit
 import dev.patika.schoolmanagementsystem.dataaccess.CourseRepository;
 import dev.patika.schoolmanagementsystem.dataaccess.specifications.CourseSpecification;
 import dev.patika.schoolmanagementsystem.entities.Course;
+import dev.patika.schoolmanagementsystem.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.util.Pair;
@@ -31,11 +33,13 @@ class CourseManager implements CourseService {
 
     private final CourseRepository repository;
     private final InstructorService instructorService;
+    private final StudentService studentService;
 
     @Autowired
-    public CourseManager(CourseRepository repository, InstructorService instructorService) {
+    public CourseManager(CourseRepository repository, InstructorService instructorService, StudentService studentService) {
         this.repository = repository;
         this.instructorService = instructorService;
+        this.studentService = studentService;
     }
 
     @Override
@@ -115,6 +119,30 @@ class CourseManager implements CourseService {
             course.utility().clearStudents();
             repository.delete(course);
         }
+    }
+
+    @Transactional
+    @Override
+    public void addStudent(Long courseId, Long studentId) {
+
+        Course course = repository.findById(courseId)
+                // Check if the Course is exists
+                .orElseThrow(() -> new EntityNotExistsException("Course", Pair.of("courseId", courseId)));
+
+        CourseValidator.validateStudentCount(course.getStudents().size());
+
+        // get proxy object
+        Student student = studentService.getById(studentId);
+        if (student == null)
+            throw new EntityNotExistsException("Student", Pair.of("studentId", studentId));
+
+        course.utility().addStudent(student);
+        repository.save(course);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
     }
 
     //region utils

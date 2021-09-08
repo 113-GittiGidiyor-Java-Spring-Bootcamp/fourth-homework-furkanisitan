@@ -1,9 +1,12 @@
 package dev.patika.schoolmanagementsystem.api.controllers;
 
 import dev.patika.schoolmanagementsystem.business.CourseService;
+import dev.patika.schoolmanagementsystem.business.StudentService;
 import dev.patika.schoolmanagementsystem.business.dtos.CourseCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.CourseDto;
 import dev.patika.schoolmanagementsystem.business.dtos.CourseUpdateDto;
+import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
+import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
 import dev.patika.schoolmanagementsystem.core.results.DataResult;
 import dev.patika.schoolmanagementsystem.core.results.Result;
 import dev.patika.schoolmanagementsystem.core.utils.ResponseEntities;
@@ -25,10 +28,12 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 public class CourseController {
 
     private final CourseService courseService;
+    private final StudentService studentService;
 
     @Autowired
-    public CourseController(CourseService courseService) {
+    public CourseController(CourseService courseService, StudentService studentService) {
         this.courseService = courseService;
+        this.studentService = studentService;
     }
 
     @GetMapping
@@ -78,6 +83,22 @@ public class CourseController {
     public ResponseEntity<Result> deleteAllByName(@RequestParam String name) {
 
         courseService.deleteAllByName(name);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/students")
+    public ResponseEntity<DataResult<List<StudentDto>>> getStudents(@PathVariable long id) {
+
+        if (!courseService.existsById(id))
+            throw new EntityNotExistsException("Course", Pair.of("id", id));
+
+        return ResponseEntities.okDataResult(studentService.findAllByCourseId(id));
+    }
+
+    @PutMapping("/{courseId}/students/{studentId}")
+    public ResponseEntity<DataResult<CourseDto>> addStudent(@PathVariable long courseId, @PathVariable long studentId) {
+
+        courseService.addStudent(courseId, studentId);
         return ResponseEntity.noContent().build();
     }
 

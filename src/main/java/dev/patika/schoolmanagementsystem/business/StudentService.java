@@ -5,6 +5,7 @@ import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentUpdateDto;
 import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
 import dev.patika.schoolmanagementsystem.dataaccess.dtos.StudentGroupByGenderResponse;
+import dev.patika.schoolmanagementsystem.entities.Student;
 
 import java.util.List;
 
@@ -26,12 +27,26 @@ public interface StudentService {
     List<StudentDto> findAll(String filter);
 
     /**
+     * Returns all students enrolled in the course.
+     *
+     * @param courseId the primary key of the course.
+     * @return a {@link List<StudentDto>}.
+     */
+    List<StudentDto> findAllByCourseId(Long courseId);
+
+    /**
      * Returns a student as {@link StudentDto} by {@literal id}.
      *
      * @param id the primary key of the entity.
      * @return a {@link StudentDto} by {@literal id}.
      */
     StudentDto findById(Long id);
+
+    /**
+     * @param id the primary key of the entity.
+     * @return proxy object of Student by {@literal id}.
+     */
+    Student getById(Long id);
 
     /**
      * Creates a new student.

@@ -1,5 +1,6 @@
 package dev.patika.schoolmanagementsystem.business.concretes;
 
+import dev.patika.schoolmanagementsystem.business.CourseService;
 import dev.patika.schoolmanagementsystem.business.StudentService;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
@@ -48,8 +49,18 @@ class StudentManager implements StudentService {
     }
 
     @Override
+    public List<StudentDto> findAllByCourseId(Long courseId) {
+        return StudentMapper.INSTANCE.toStudentDtoList(repository.findAllByCourses_Id(courseId));
+    }
+
+    @Override
     public StudentDto findById(Long id) {
         return StudentMapper.INSTANCE.toStudentDto(repository.findById(id).orElse(null));
+    }
+
+    @Override
+    public Student getById(Long id) {
+        return repository.getById(id);
     }
 
     @Transactional
