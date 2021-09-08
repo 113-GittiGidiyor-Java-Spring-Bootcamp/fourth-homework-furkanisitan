@@ -38,9 +38,8 @@ class InstructorManager implements InstructorService {
         this.visitingResearcherRepository = visitingResearcherRepository;
     }
 
-
     @Override
-    public List<? extends InstructorDto> findAll(String filter, InstructorCriteria criteria) {
+    public List<InstructorDto> findAll(String filter, InstructorCriteria criteria) {
 
         List<FilterCriteria> filterCriteria = FilterCriteriaHelper.from(filter);
         Specification<Instructor> spec = generateInstructorSpecification(filterCriteria);
@@ -55,6 +54,11 @@ class InstructorManager implements InstructorService {
         }
 
         return InstructorMapper.INSTANCE.toInstructorDtoList(pageRequest == null ? repository.findAll(spec) : repository.findAll(spec, pageRequest).getContent());
+    }
+
+    @Override
+    public InstructorDto findById(Long id) {
+        return InstructorMapper.INSTANCE.toInstructorDto(repository.findById(id).orElse(null));
     }
 
     @Override

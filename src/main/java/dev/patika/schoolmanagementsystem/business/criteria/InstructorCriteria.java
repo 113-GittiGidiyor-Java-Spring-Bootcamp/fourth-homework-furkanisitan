@@ -29,19 +29,22 @@ public class InstructorCriteria {
      * @return a Sort object if the sort value is valid.
      */
     public Sort generateSort() {
-        switch (sort) {
-            case "fixedSalary":
-            case "fixedSalary.asc":
-                return Sort.by(Sort.Order.asc("fixedSalary").nullsLast());
-            case "fixedSalary.desc":
-                return Sort.by(Sort.Order.desc("fixedSalary").nullsLast());
-            case "hourlySalary":
-            case "hourlySalary.asc":
-                return Sort.by(Sort.Order.asc("hourlySalary").nullsLast());
-            case "hourlySalary.desc":
-                return Sort.by(Sort.Order.desc("hourlySalary").nullsLast());
-            default:
-                return null;
+
+        if (sort != null) {
+            switch (sort) {
+                case "fixedSalary":
+                case "fixedSalary.asc":
+                    return Sort.by(Sort.Order.asc("fixedSalary").nullsLast());
+                case "fixedSalary.desc":
+                    return Sort.by(Sort.Order.desc("fixedSalary").nullsLast());
+                case "hourlySalary":
+                case "hourlySalary.asc":
+                    return Sort.by(Sort.Order.asc("hourlySalary").nullsLast());
+                case "hourlySalary.desc":
+                    return Sort.by(Sort.Order.desc("hourlySalary").nullsLast());
+
+            }
         }
+        return null;
     }
 }

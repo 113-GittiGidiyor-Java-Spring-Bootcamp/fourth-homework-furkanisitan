@@ -8,23 +8,20 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper
 public interface InstructorMapper {
 
     InstructorMapper INSTANCE = Mappers.getMapper(InstructorMapper.class);
 
-    default List<? extends InstructorDto> toInstructorDtoList(List<? extends Instructor> instructors) {
-        return instructors.stream().map(x -> {
-            if (x instanceof PermanentInstructor)
-                return PermanentInstructorMapper.INSTANCE.toPermanentInstructorDto((PermanentInstructor) x);
-            else if (x instanceof VisitingResearcher)
-                return VisitingResearcherMapper.INSTANCE.toVisitingResearcherDto((VisitingResearcher) x);
-            return InstructorMapper.INSTANCE.toInstructorDto(x);
-        }).collect(Collectors.toList());
-    }
+    List<InstructorDto> toInstructorDtoList(List<? extends Instructor> instructors);
 
-    InstructorDto toInstructorDto(Instructor instructor);
+    default InstructorDto toInstructorDto(Instructor instructor) {
+        if (instructor instanceof PermanentInstructor)
+            return PermanentInstructorMapper.INSTANCE.toPermanentInstructorDto((PermanentInstructor) instructor);
+        else if (instructor instanceof VisitingResearcher)
+            return VisitingResearcherMapper.INSTANCE.toVisitingResearcherDto((VisitingResearcher) instructor);
+        return InstructorMapper.INSTANCE.toInstructorDto(instructor);
+    }
 
 }

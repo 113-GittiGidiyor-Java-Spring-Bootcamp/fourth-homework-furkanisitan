@@ -14,7 +14,16 @@ public interface InstructorService {
      * @param filter a text containing filter parameters.
      * @return a {@link List<InstructorDto>} by {@literal filter} and {@literal criteria}.
      */
-    List<? extends InstructorDto> findAll(String filter, InstructorCriteria criteria);
+    List<InstructorDto> findAll(String filter, InstructorCriteria criteria);
+
+
+    /**
+     * Returns a instructor as {@link InstructorDto} by {@literal id}.
+     *
+     * @param id the primary key of the entity.
+     * @return a {@link InstructorDto} by {@literal id}.
+     */
+    InstructorDto findById(Long id);
 
     /**
      * @param id the primary key of the entity.
