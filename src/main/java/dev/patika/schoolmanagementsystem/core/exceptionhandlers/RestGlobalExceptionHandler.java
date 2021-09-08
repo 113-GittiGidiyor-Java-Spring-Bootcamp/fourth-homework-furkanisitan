@@ -19,14 +19,14 @@ public class RestGlobalExceptionHandler {
     @ExceptionHandler(EntityNotExistsException.class)
     @ResponseBody
     Result handleEntityNotExistsException(EntityNotExistsException e) {
-        return Result.fail(ResponseMessages.NOT_FOUND, e.getMessage());
+        return Result.fail(ResponseMessages.ERR_NOT_FOUND, e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({NotAllowedFilterCriteriaException.class, InvalidFilterException.class})
     @ResponseBody
     Result handleInvalidFilterException(Exception e) {
-        return Result.fail(ResponseMessages.INVALID_FILTER_CRITERIA, e.getMessage());
+        return Result.fail(ResponseMessages.ERR_INVALID_FILTER_CRITERIA, e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

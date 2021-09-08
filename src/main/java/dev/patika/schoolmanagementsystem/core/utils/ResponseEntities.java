@@ -23,12 +23,12 @@ public class ResponseEntities {
     @SafeVarargs
     public static ResponseEntity<Result> notFoundResult(String name, Pair<String, Object>... parameters) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Result.fail(ResponseMessages.NOT_FOUND, ApiErrors.notFound(name, parameters)));
+                .body(Result.fail(ResponseMessages.ERR_NOT_FOUND, ApiErrors.notFound(name, parameters)));
     }
 
     @SafeVarargs
     public static <T> ResponseEntity<DataResult<T>> notFoundDataResult(String name, Pair<String, Object>... parameters) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(DataResult.<T>builder().message(ResponseMessages.NOT_FOUND).errors(Collections.singletonList(ApiErrors.notFound(name, parameters))).build());
+                .body(DataResult.<T>builder().message(ResponseMessages.ERR_NOT_FOUND).errors(Collections.singletonList(ApiErrors.notFound(name, parameters))).build());
     }
 }
