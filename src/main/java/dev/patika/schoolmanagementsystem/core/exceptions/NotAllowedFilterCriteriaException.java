@@ -1,11 +1,14 @@
-package dev.patika.schoolmanagementsystem.core.criteria;
+package dev.patika.schoolmanagementsystem.core.exceptions;
 
 import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCriteria;
 import dev.patika.schoolmanagementsystem.core.specifications.criteria.OperationType;
+import dev.patika.schoolmanagementsystem.core.utils.CriteriaPermissions;
+
+import java.util.Map;
 
 /**
  * Thrown to indicate that {@link FilterCriteria} parameter given to the
- * {@link CriteriaPermissions#checkFilterCriteria(FilterCriteria)} method has not passed the relevant checks.
+ * {@link CriteriaPermissions#checkFilterCriteria(FilterCriteria, Map)} method has not passed the relevant checks.
  */
 public class NotAllowedFilterCriteriaException extends RuntimeException {
 

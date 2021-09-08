@@ -1,7 +1,7 @@
 package dev.patika.schoolmanagementsystem.core.exceptionhandlers;
 
 import dev.patika.schoolmanagementsystem.core.constants.ResponseMessages;
-import dev.patika.schoolmanagementsystem.core.criteria.NotAllowedFilterCriteriaException;
+import dev.patika.schoolmanagementsystem.core.exceptions.NotAllowedFilterCriteriaException;
 import dev.patika.schoolmanagementsystem.core.exceptions.CustomValidationException;
 import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
 import dev.patika.schoolmanagementsystem.core.results.Result;
