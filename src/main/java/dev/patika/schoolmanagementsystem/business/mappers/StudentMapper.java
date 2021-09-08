@@ -1,5 +1,6 @@
 package dev.patika.schoolmanagementsystem.business.mappers;
 
+import dev.patika.schoolmanagementsystem.business.dtos.StudentCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
 import dev.patika.schoolmanagementsystem.entities.Student;
 import org.mapstruct.Mapper;
@@ -15,4 +16,6 @@ public interface StudentMapper {
     List<StudentDto> toStudentDtoList(List<Student> students);
 
     StudentDto toStudentDto(Student student);
+
+    Student fromStudentCreateDto(StudentCreateDto studentCreateDto);
 }

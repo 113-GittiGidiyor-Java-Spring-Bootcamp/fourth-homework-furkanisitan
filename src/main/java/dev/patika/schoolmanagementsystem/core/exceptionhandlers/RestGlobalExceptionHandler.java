@@ -2,6 +2,7 @@ package dev.patika.schoolmanagementsystem.core.exceptionhandlers;
 
 import dev.patika.schoolmanagementsystem.core.constants.ResponseMessages;
 import dev.patika.schoolmanagementsystem.core.criteria.NotAllowedFilterCriteriaException;
+import dev.patika.schoolmanagementsystem.core.exceptions.CustomValidationException;
 import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
 import dev.patika.schoolmanagementsystem.core.results.Result;
 import dev.patika.schoolmanagementsystem.core.specifications.exceptions.InvalidFilterException;
@@ -27,4 +28,12 @@ public class RestGlobalExceptionHandler {
     Result handleInvalidFilterException(Exception e) {
         return Result.fail(ResponseMessages.INVALID_FILTER_CRITERIA, e.getMessage());
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(CustomValidationException.class)
+    @ResponseBody
+    Result handleCustomValidationException(CustomValidationException e) {
+        return Result.fail(ResponseMessages.ERR_VALIDATION, e.getMessage());
+    }
+
 }

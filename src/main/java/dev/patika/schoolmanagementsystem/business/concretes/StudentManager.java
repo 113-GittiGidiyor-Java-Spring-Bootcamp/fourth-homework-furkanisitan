@@ -1,10 +1,11 @@
 package dev.patika.schoolmanagementsystem.business.concretes;
 
 import dev.patika.schoolmanagementsystem.business.StudentService;
+import dev.patika.schoolmanagementsystem.business.dtos.StudentCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
 import dev.patika.schoolmanagementsystem.business.helpers.FilterCriteriaHelper;
 import dev.patika.schoolmanagementsystem.business.mappers.StudentMapper;
-import dev.patika.schoolmanagementsystem.business.validators.StudentValidator;
+import dev.patika.schoolmanagementsystem.business.validation.validators.StudentValidator;
 import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
 import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCriteria;
 import dev.patika.schoolmanagementsystem.dataaccess.StudentRepository;
@@ -51,6 +52,16 @@ public class StudentManager implements StudentService {
     @Override
     public StudentDto findById(Long id) {
         return StudentMapper.INSTANCE.toStudentDto(repository.findById(id).orElse(null));
+    }
+
+    @Override
+    public StudentDto create(StudentCreateDto studentCreateDto) {
+
+        // Check student's age
+        StudentValidator.validateAge(studentCreateDto.getBirthDate());
+
+        Student student = StudentMapper.INSTANCE.fromStudentCreateDto(studentCreateDto);
+        return StudentMapper.INSTANCE.toStudentDto(repository.save(student));
     }
 
     @Transactional

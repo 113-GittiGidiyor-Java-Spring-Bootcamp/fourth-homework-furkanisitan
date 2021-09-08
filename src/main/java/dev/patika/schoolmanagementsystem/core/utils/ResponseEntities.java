@@ -7,12 +7,17 @@ import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.net.URI;
 import java.util.Collections;
 
 public class ResponseEntities {
 
     public static <T> ResponseEntity<DataResult<T>> okDataResult(T data) {
         return ResponseEntity.ok(DataResult.<T>builder().message(ResponseMessages.OK).payload(data).success(true).build());
+    }
+
+    public static <T> ResponseEntity<DataResult<T>> createdDataResult(T data, URI uri) {
+        return ResponseEntity.created(uri).body(DataResult.<T>builder().message(ResponseMessages.CREATED).payload(data).success(true).build());
     }
 
     @SafeVarargs

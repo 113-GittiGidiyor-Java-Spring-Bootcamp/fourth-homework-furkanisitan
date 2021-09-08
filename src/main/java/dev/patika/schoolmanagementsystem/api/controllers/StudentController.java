@@ -1,6 +1,7 @@
 package dev.patika.schoolmanagementsystem.api.controllers;
 
 import dev.patika.schoolmanagementsystem.business.StudentService;
+import dev.patika.schoolmanagementsystem.business.dtos.StudentCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
 import dev.patika.schoolmanagementsystem.core.results.DataResult;
 import dev.patika.schoolmanagementsystem.core.results.Result;
@@ -10,9 +11,13 @@ import dev.patika.schoolmanagementsystem.entities.Student;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 @RestController
 @RequestMapping("/api/students")
@@ -36,6 +41,18 @@ public class StudentController {
         return studentDto == null ?
                 ResponseEntities.notFoundDataResult(Student.class.getSimpleName(), Pair.of("id", id)) :
                 ResponseEntities.okDataResult(studentDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<DataResult<StudentDto>> create(@RequestBody StudentCreateDto studentCreateDto) {
+
+        StudentDto studentDto = studentService.create(studentCreateDto);
+
+        // location header
+        URI uri = MvcUriComponentsBuilder.fromMethodCall(
+                on(StudentController.class).getById(studentDto.getId())).buildAndExpand().toUri();
+
+        return ResponseEntities.createdDataResult(studentDto, uri);
     }
 
     @DeleteMapping("/{id}")
