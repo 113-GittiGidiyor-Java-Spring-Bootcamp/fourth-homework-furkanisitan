@@ -2,12 +2,13 @@ package dev.patika.schoolmanagementsystem.api.controllers;
 
 import dev.patika.schoolmanagementsystem.business.InstructorService;
 import dev.patika.schoolmanagementsystem.business.criteria.InstructorCriteria;
-import dev.patika.schoolmanagementsystem.business.dtos.*;
+import dev.patika.schoolmanagementsystem.business.dtos.InstructorCreateDto;
+import dev.patika.schoolmanagementsystem.business.dtos.InstructorDto;
+import dev.patika.schoolmanagementsystem.business.dtos.InstructorUpdateDto;
 import dev.patika.schoolmanagementsystem.core.results.DataResult;
+import dev.patika.schoolmanagementsystem.core.results.Result;
 import dev.patika.schoolmanagementsystem.core.utils.ResponseEntities;
-import dev.patika.schoolmanagementsystem.entities.Course;
 import dev.patika.schoolmanagementsystem.entities.Instructor;
-import dev.patika.schoolmanagementsystem.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +56,15 @@ public class InstructorController {
                 on(InstructorController.class).getById(instructorDto.getId())).buildAndExpand().toUri();
 
         return ResponseEntities.createdDataResult(instructorDto, uri);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Result> update(@PathVariable long id, @RequestBody InstructorUpdateDto instructorUpdateDto) {
+
+        instructorUpdateDto.setId(id);
+        instructorService.update(instructorUpdateDto);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

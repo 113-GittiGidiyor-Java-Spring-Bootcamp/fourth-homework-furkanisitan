@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION, defaultImpl = InstructorCreateDto.class)
-@JsonSubTypes({@JsonSubTypes.Type(PermanentInstructorCreateDto.class), @JsonSubTypes.Type(VisitingResearcherCreateDto.class)})
+@JsonSubTypes({@JsonSubTypes.Type(PermanentInstructorUpdateDto.class), @JsonSubTypes.Type(VisitingResearcherUpdateDto.class)})
 @Data
-public class InstructorCreateDto {
+public class InstructorUpdateDto {
 
+    private Long id;
     private String phoneNumber;
     private String name;
     private String address;
 }
-

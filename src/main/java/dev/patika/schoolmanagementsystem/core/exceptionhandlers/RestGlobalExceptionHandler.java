@@ -48,4 +48,11 @@ public class RestGlobalExceptionHandler {
         return Result.fail(ResponseMessages.ERR_FOREIGN_KEY_CONSTRAINT, e.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidEntityTypeException.class)
+    @ResponseBody
+    Result handleInvalidEntityTypeException(InvalidEntityTypeException e) {
+        return Result.fail(ResponseMessages.ERR_INVALID_ENTITY_TYPE, e.getMessage());
+    }
+
 }

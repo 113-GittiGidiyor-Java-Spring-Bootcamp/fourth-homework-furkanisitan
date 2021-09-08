@@ -4,11 +4,14 @@ import dev.patika.schoolmanagementsystem.business.InstructorService;
 import dev.patika.schoolmanagementsystem.business.criteria.InstructorCriteria;
 import dev.patika.schoolmanagementsystem.business.dtos.InstructorCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.InstructorDto;
+import dev.patika.schoolmanagementsystem.business.dtos.InstructorUpdateDto;
 import dev.patika.schoolmanagementsystem.business.helpers.FilterCriteriaHelper;
 import dev.patika.schoolmanagementsystem.business.mappers.InstructorMapper;
 import dev.patika.schoolmanagementsystem.business.validation.validators.FilterCriteriaValidator;
 import dev.patika.schoolmanagementsystem.business.validation.validators.InstructorValidator;
+import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
 import dev.patika.schoolmanagementsystem.core.exceptions.InstructorIsAlreadyExistException;
+import dev.patika.schoolmanagementsystem.core.exceptions.InvalidEntityTypeException;
 import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCriteria;
 import dev.patika.schoolmanagementsystem.dataaccess.InstructorRepository;
 import dev.patika.schoolmanagementsystem.dataaccess.PermanentInstructorRepository;
@@ -20,6 +23,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,6 +73,7 @@ class InstructorManager implements InstructorService {
         return repository.getById(id);
     }
 
+    @Transactional
     @Override
     public InstructorDto create(InstructorCreateDto instructorCreateDto) {
 
@@ -77,6 +82,28 @@ class InstructorManager implements InstructorService {
 
         Instructor instructor = InstructorMapper.INSTANCE.fromInstructorCreateDto(instructorCreateDto);
         return InstructorMapper.INSTANCE.toInstructorDto(repository.save(instructor));
+    }
+
+    @Transactional
+    @Override
+    public void update(InstructorUpdateDto instructorUpdateDto) {
+
+        Instructor existsInstructor = repository.findById(instructorUpdateDto.getId()).orElse(null);
+
+        // Check if the instructor is exists
+        if (existsInstructor == null)
+            throw new EntityNotExistsException("Instructor", Pair.of("id", instructorUpdateDto.getId()));
+
+        // Check if existing entity type equals type of entity to update.
+        Instructor instructor = InstructorMapper.INSTANCE.fromInstructorUpdateDto(instructorUpdateDto);
+        if (!instructor.getClass().equals(existsInstructor.getClass()))
+            throw new InvalidEntityTypeException(existsInstructor.getClass().getSimpleName());
+
+        // Check if 'phoneNumber' is unique for update
+        validatePhoneNumberIsUnique(instructorUpdateDto.getPhoneNumber(), existsInstructor.getId());
+
+        InstructorMapper.INSTANCE.updateFromInstructorUpdateDto(instructorUpdateDto, existsInstructor);
+        repository.save(existsInstructor);
     }
 
     @Override

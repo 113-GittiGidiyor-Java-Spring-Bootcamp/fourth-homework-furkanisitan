@@ -3,6 +3,7 @@ package dev.patika.schoolmanagementsystem.business;
 import dev.patika.schoolmanagementsystem.business.criteria.InstructorCriteria;
 import dev.patika.schoolmanagementsystem.business.dtos.InstructorCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.InstructorDto;
+import dev.patika.schoolmanagementsystem.business.dtos.InstructorUpdateDto;
 import dev.patika.schoolmanagementsystem.entities.Instructor;
 
 import java.util.List;
@@ -39,6 +40,13 @@ public interface InstructorService {
      * @return the added instructor as {@link InstructorDto}.
      */
     InstructorDto create(InstructorCreateDto instructorCreateDto);
+
+    /**
+     * Updates the instructor.
+     *
+     * @param instructorUpdateDto the dto object required to update the instructor.
+     */
+    void update(InstructorUpdateDto instructorUpdateDto);
 
     /**
      * @param id the primary key of the entity.
