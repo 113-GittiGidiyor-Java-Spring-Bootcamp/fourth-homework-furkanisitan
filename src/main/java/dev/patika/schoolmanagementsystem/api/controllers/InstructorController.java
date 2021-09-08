@@ -1,6 +1,7 @@
 package dev.patika.schoolmanagementsystem.api.controllers;
 
 import dev.patika.schoolmanagementsystem.business.InstructorService;
+import dev.patika.schoolmanagementsystem.business.criteria.InstructorCriteria;
 import dev.patika.schoolmanagementsystem.business.dtos.InstructorDto;
 import dev.patika.schoolmanagementsystem.core.results.DataResult;
 import dev.patika.schoolmanagementsystem.core.utils.ResponseEntities;
@@ -26,8 +27,8 @@ public class InstructorController {
     }
 
     @GetMapping
-    public ResponseEntity<DataResult<List<? extends InstructorDto>>> getAll(@RequestParam Optional<String> filter) {
-        return ResponseEntities.okDataResult(instructorService.findAll(filter.orElse(null)));
+    public ResponseEntity<DataResult<List<? extends InstructorDto>>> getAll(@RequestParam Optional<String> filter, InstructorCriteria criteria) {
+        return ResponseEntities.okDataResult(instructorService.findAll(filter.orElse(null), criteria));
     }
 
 }
