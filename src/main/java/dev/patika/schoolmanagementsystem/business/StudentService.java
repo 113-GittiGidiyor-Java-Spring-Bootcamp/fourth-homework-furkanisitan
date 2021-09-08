@@ -2,6 +2,7 @@ package dev.patika.schoolmanagementsystem.business;
 
 import dev.patika.schoolmanagementsystem.business.dtos.StudentCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
+import dev.patika.schoolmanagementsystem.business.dtos.StudentUpdateDto;
 import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
 import dev.patika.schoolmanagementsystem.dataaccess.dtos.StudentGroupByGenderResponse;
 
@@ -39,6 +40,13 @@ public interface StudentService {
      * @return the added student as {@link StudentDto}.
      */
     StudentDto create(StudentCreateDto studentCreateDto);
+
+    /**
+     * Updates the student.
+     *
+     * @param studentUpdateDto the dto object required to update the student.
+     */
+    void update(StudentUpdateDto studentUpdateDto);
 
     /**
      * Deletes student by {@literal id}.

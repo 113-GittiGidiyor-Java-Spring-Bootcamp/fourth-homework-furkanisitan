@@ -3,6 +3,7 @@ package dev.patika.schoolmanagementsystem.business.concretes;
 import dev.patika.schoolmanagementsystem.business.StudentService;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
+import dev.patika.schoolmanagementsystem.business.dtos.StudentUpdateDto;
 import dev.patika.schoolmanagementsystem.business.helpers.FilterCriteriaHelper;
 import dev.patika.schoolmanagementsystem.business.mappers.StudentMapper;
 import dev.patika.schoolmanagementsystem.business.validation.validators.StudentValidator;
@@ -54,6 +55,7 @@ public class StudentManager implements StudentService {
         return StudentMapper.INSTANCE.toStudentDto(repository.findById(id).orElse(null));
     }
 
+    @Transactional
     @Override
     public StudentDto create(StudentCreateDto studentCreateDto) {
 
@@ -62,6 +64,23 @@ public class StudentManager implements StudentService {
 
         Student student = StudentMapper.INSTANCE.fromStudentCreateDto(studentCreateDto);
         return StudentMapper.INSTANCE.toStudentDto(repository.save(student));
+    }
+
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    @Transactional
+    @Override
+    public void update(StudentUpdateDto studentUpdateDto) {
+
+        // Check student's age
+        StudentValidator.validateAge(studentUpdateDto.getBirthDate());
+
+        // Check if the entity is exists.
+        validateExistsById(studentUpdateDto.getId());
+
+        Student student = repository.findById(studentUpdateDto.getId()).get();
+        StudentMapper.INSTANCE.updateFromStudentUpdateDto(studentUpdateDto, student);
+
+        repository.save(student);
     }
 
     @Transactional

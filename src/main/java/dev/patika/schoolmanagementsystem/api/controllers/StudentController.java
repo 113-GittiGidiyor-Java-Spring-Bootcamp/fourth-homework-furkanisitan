@@ -3,6 +3,7 @@ package dev.patika.schoolmanagementsystem.api.controllers;
 import dev.patika.schoolmanagementsystem.business.StudentService;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
+import dev.patika.schoolmanagementsystem.business.dtos.StudentUpdateDto;
 import dev.patika.schoolmanagementsystem.core.results.DataResult;
 import dev.patika.schoolmanagementsystem.core.results.Result;
 import dev.patika.schoolmanagementsystem.core.utils.ResponseEntities;
@@ -53,6 +54,15 @@ public class StudentController {
                 on(StudentController.class).getById(studentDto.getId())).buildAndExpand().toUri();
 
         return ResponseEntities.createdDataResult(studentDto, uri);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Result> update(@PathVariable long id, @RequestBody StudentUpdateDto studentUpdateDto) {
+
+        studentUpdateDto.setId(id);
+        studentService.update(studentUpdateDto);
+
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
