@@ -67,4 +67,18 @@ public class InstructorController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Result> deleteById(@PathVariable long id) {
+
+        instructorService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Result> deleteAllByName(@RequestParam String name) {
+
+        instructorService.deleteAllByName(name);
+        return ResponseEntity.noContent().build();
+    }
+
 }

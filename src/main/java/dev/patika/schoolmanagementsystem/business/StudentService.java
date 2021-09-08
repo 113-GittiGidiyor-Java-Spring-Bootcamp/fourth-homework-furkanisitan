@@ -45,6 +45,7 @@ public interface StudentService {
      * Updates the student.
      *
      * @param studentUpdateDto the dto object required to update the student.
+     * @throws EntityNotExistsException if entity is not exists.
      */
     void update(StudentUpdateDto studentUpdateDto);
 

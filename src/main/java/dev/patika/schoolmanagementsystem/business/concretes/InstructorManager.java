@@ -106,6 +106,29 @@ class InstructorManager implements InstructorService {
         repository.save(existsInstructor);
     }
 
+    @Transactional
+    @Override
+    public void deleteById(Long id) {
+
+        Instructor instructor = repository.findById(id)
+                // Check if the Course is exists
+                .orElseThrow(() -> new EntityNotExistsException("Instructor", Pair.of("id", id)));
+
+        instructor.utility().clearCourses();
+        repository.delete(instructor);
+    }
+
+    @Transactional
+    @Override
+    public void deleteAllByName(String name) {
+        List<Instructor> instructors = repository.findAllByName(name);
+
+        for (Instructor instructor : instructors) {
+            instructor.utility().clearCourses();
+            repository.delete(instructor);
+        }
+    }
+
     @Override
     public boolean existsById(Long id) {
         return repository.existsById(id);

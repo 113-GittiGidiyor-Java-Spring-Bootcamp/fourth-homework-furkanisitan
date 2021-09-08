@@ -44,6 +44,7 @@ public interface CourseService {
      * Updates the course.
      *
      * @param courseUpdateDto the dto object required to update the course.
+     * @throws EntityNotExistsException if entity is not exists.
      */
     void update(CourseUpdateDto courseUpdateDto);
 
