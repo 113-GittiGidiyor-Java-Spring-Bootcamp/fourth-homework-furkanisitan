@@ -1,5 +1,6 @@
 package dev.patika.schoolmanagementsystem.business.mappers;
 
+import dev.patika.schoolmanagementsystem.business.dtos.VisitingResearcherCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.VisitingResearcherDto;
 import dev.patika.schoolmanagementsystem.entities.VisitingResearcher;
 import org.mapstruct.Mapper;
@@ -11,4 +12,6 @@ public interface VisitingResearcherMapper {
     VisitingResearcherMapper INSTANCE = Mappers.getMapper(VisitingResearcherMapper.class);
 
     VisitingResearcherDto toVisitingResearcherDto(VisitingResearcher visitingResearcher);
+
+    VisitingResearcher fromVisitingResearcherCreateDto(VisitingResearcherCreateDto visitingResearcherCreateDto);
 }

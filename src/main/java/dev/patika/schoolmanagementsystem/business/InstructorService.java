@@ -1,6 +1,7 @@
 package dev.patika.schoolmanagementsystem.business;
 
 import dev.patika.schoolmanagementsystem.business.criteria.InstructorCriteria;
+import dev.patika.schoolmanagementsystem.business.dtos.InstructorCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.InstructorDto;
 import dev.patika.schoolmanagementsystem.entities.Instructor;
 
@@ -30,6 +31,14 @@ public interface InstructorService {
      * @return proxy object of Instructor by {@literal id}.
      */
     Instructor getById(Long id);
+
+    /**
+     * Creates a new instructor.
+     *
+     * @param instructorCreateDto the dto object required to create a new instructor.
+     * @return the added instructor as {@link InstructorDto}.
+     */
+    InstructorDto create(InstructorCreateDto instructorCreateDto);
 
     /**
      * @param id the primary key of the entity.

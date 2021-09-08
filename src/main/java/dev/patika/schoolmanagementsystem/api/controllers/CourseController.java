@@ -47,9 +47,9 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<DataResult<CourseDto>> create(@RequestBody CourseCreateDto createCreateDto) {
+    public ResponseEntity<DataResult<CourseDto>> create(@RequestBody CourseCreateDto courseCreateDto) {
 
-        CourseDto courseDto = courseService.create(createCreateDto);
+        CourseDto courseDto = courseService.create(courseCreateDto);
 
         // location header
         URI uri = MvcUriComponentsBuilder.fromMethodCall(

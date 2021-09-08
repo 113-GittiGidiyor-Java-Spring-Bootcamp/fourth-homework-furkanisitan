@@ -2,9 +2,7 @@ package dev.patika.schoolmanagementsystem.api.controllers;
 
 import dev.patika.schoolmanagementsystem.business.InstructorService;
 import dev.patika.schoolmanagementsystem.business.criteria.InstructorCriteria;
-import dev.patika.schoolmanagementsystem.business.dtos.CourseDto;
-import dev.patika.schoolmanagementsystem.business.dtos.InstructorDto;
-import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
+import dev.patika.schoolmanagementsystem.business.dtos.*;
 import dev.patika.schoolmanagementsystem.core.results.DataResult;
 import dev.patika.schoolmanagementsystem.core.utils.ResponseEntities;
 import dev.patika.schoolmanagementsystem.entities.Course;
@@ -14,9 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 @RestController
 @RequestMapping("/api/instructors")
@@ -41,6 +43,18 @@ public class InstructorController {
         return instructorDto == null ?
                 ResponseEntities.notFoundDataResult(Instructor.class.getSimpleName(), Pair.of("id", id)) :
                 ResponseEntities.okDataResult(instructorDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<DataResult<InstructorDto>> create(@RequestBody InstructorCreateDto instructorCreateDto) {
+
+        InstructorDto instructorDto = instructorService.create(instructorCreateDto);
+
+        // location header
+        URI uri = MvcUriComponentsBuilder.fromMethodCall(
+                on(InstructorController.class).getById(instructorDto.getId())).buildAndExpand().toUri();
+
+        return ResponseEntities.createdDataResult(instructorDto, uri);
     }
 
 }

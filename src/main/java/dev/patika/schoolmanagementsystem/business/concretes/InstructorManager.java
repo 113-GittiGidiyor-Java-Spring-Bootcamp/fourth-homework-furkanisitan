@@ -2,11 +2,13 @@ package dev.patika.schoolmanagementsystem.business.concretes;
 
 import dev.patika.schoolmanagementsystem.business.InstructorService;
 import dev.patika.schoolmanagementsystem.business.criteria.InstructorCriteria;
+import dev.patika.schoolmanagementsystem.business.dtos.InstructorCreateDto;
 import dev.patika.schoolmanagementsystem.business.dtos.InstructorDto;
 import dev.patika.schoolmanagementsystem.business.helpers.FilterCriteriaHelper;
 import dev.patika.schoolmanagementsystem.business.mappers.InstructorMapper;
 import dev.patika.schoolmanagementsystem.business.validation.validators.FilterCriteriaValidator;
 import dev.patika.schoolmanagementsystem.business.validation.validators.InstructorValidator;
+import dev.patika.schoolmanagementsystem.core.exceptions.InstructorIsAlreadyExistException;
 import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCriteria;
 import dev.patika.schoolmanagementsystem.dataaccess.InstructorRepository;
 import dev.patika.schoolmanagementsystem.dataaccess.PermanentInstructorRepository;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Transactional(readOnly = true)
 @Service
@@ -67,6 +70,16 @@ class InstructorManager implements InstructorService {
     }
 
     @Override
+    public InstructorDto create(InstructorCreateDto instructorCreateDto) {
+
+        // Check if 'phoneNumber' is unique
+        validatePhoneNumberIsUnique(instructorCreateDto.getPhoneNumber());
+
+        Instructor instructor = InstructorMapper.INSTANCE.fromInstructorCreateDto(instructorCreateDto);
+        return InstructorMapper.INSTANCE.toInstructorDto(repository.save(instructor));
+    }
+
+    @Override
     public boolean existsById(Long id) {
         return repository.existsById(id);
     }
@@ -89,6 +102,37 @@ class InstructorManager implements InstructorService {
         if (sort.contains("fixedSalary")) return permanentInstructorRepository;
         if (sort.contains("hourlySalary")) return visitingResearcherRepository;
         return repository;
+    }
+    //endregion
+
+    //region validators
+
+    /**
+     * Checks if {@literal phoneNumber} is unique.
+     *
+     * @param phoneNumber unique value to validate.
+     * @throws InstructorIsAlreadyExistException if {@literal phoneNumber} is not unique.
+     */
+    private void validatePhoneNumberIsUnique(String phoneNumber) {
+
+        if (repository.existsByPhoneNumber(phoneNumber))
+            throw new InstructorIsAlreadyExistException("phoneNumber", phoneNumber);
+    }
+
+    /**
+     * Checks if {@literal phoneNumber} is unique for update operation.
+     *
+     * @param phoneNumber unique value to validate.
+     * @param id          primary key of the instructor to be updated.
+     * @throws InstructorIsAlreadyExistException if {@literal phoneNumber} is not unique for update.
+     */
+    private void validatePhoneNumberIsUnique(String phoneNumber, Long id) {
+
+        // get proxy object
+        Instructor existsInstructor = repository.getByPhoneNumber(phoneNumber);
+
+        if (existsInstructor != null && !Objects.equals(existsInstructor.getId(), id))
+            throw new InstructorIsAlreadyExistException("phoneNumber", phoneNumber);
     }
     //endregion
 }

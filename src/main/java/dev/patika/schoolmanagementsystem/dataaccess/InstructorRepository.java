@@ -7,4 +7,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InstructorRepository extends JpaRepository<Instructor, Long>, JpaSpecificationExecutor<Instructor> {
+
+    Instructor getByPhoneNumber(String phneNumber);
+
+    boolean existsByPhoneNumber(String phoneNumber);
+
 }
