@@ -6,6 +6,7 @@ import dev.patika.schoolmanagementsystem.business.dtos.StudentDto;
 import dev.patika.schoolmanagementsystem.business.dtos.StudentUpdateDto;
 import dev.patika.schoolmanagementsystem.business.helpers.FilterCriteriaHelper;
 import dev.patika.schoolmanagementsystem.business.mappers.StudentMapper;
+import dev.patika.schoolmanagementsystem.business.validation.validators.FilterCriteriaValidator;
 import dev.patika.schoolmanagementsystem.business.validation.validators.StudentValidator;
 import dev.patika.schoolmanagementsystem.core.exceptions.EntityNotExistsException;
 import dev.patika.schoolmanagementsystem.core.specifications.criteria.FilterCriteria;
@@ -43,9 +44,10 @@ public class StudentManager implements StudentService {
         List<FilterCriteria> criteria = FilterCriteriaHelper.from(filter);
         if (criteria.isEmpty()) return findAll();
 
-        Specification<Student> spec = Specification.where(new StudentSpecification(StudentValidator.validateFilterCriteria(criteria.get(0))));
+        Specification<Student> spec = Specification.where(generateStudentSpecification(criteria.get(0)));
+
         for (int i = 1; i < criteria.size(); i++)
-            spec.and(new StudentSpecification(StudentValidator.validateFilterCriteria(criteria.get(i))));
+            spec.and(generateStudentSpecification(criteria.get(i)));
 
         return StudentMapper.INSTANCE.toStudentDtoList(repository.findAll(spec));
     }
@@ -103,6 +105,12 @@ public class StudentManager implements StudentService {
     public List<StudentGroupByGenderResponse> countAndGroupByGender() {
         return repository.countGender();
     }
+
+    //region utils
+    private StudentSpecification generateStudentSpecification(FilterCriteria criteria) {
+        return new StudentSpecification(FilterCriteriaValidator.validateFilterCriteria(criteria, StudentValidator.filterCriteriaPermissions));
+    }
+    //endregion
 
     //region validators
 
