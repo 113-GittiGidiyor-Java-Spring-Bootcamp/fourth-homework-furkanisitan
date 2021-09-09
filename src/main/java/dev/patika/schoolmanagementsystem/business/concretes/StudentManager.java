@@ -112,6 +112,11 @@ class StudentManager implements StudentService {
         return repository.countGender();
     }
 
+    @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
+    }
+
     //region utils
     private Specification<Student> generateStudentSpecification(List<FilterCriteria> criteria) {
 

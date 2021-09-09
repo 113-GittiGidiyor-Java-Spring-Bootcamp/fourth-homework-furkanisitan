@@ -85,4 +85,10 @@ public interface StudentService {
      * @return a {@link List<StudentGroupByGenderResponse>}.
      */
     List<StudentGroupByGenderResponse> countAndGroupByGender();
+
+    /**
+     * @param id the primary key of the entity.
+     * @return true if student exists by {@literal id}, otherwise false.
+     */
+    boolean existsById(Long id);
 }

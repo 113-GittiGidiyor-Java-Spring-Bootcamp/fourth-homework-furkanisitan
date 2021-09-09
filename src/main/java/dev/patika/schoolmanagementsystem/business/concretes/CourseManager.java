@@ -131,12 +131,14 @@ class CourseManager implements CourseService {
 
         CourseValidator.validateStudentCount(course.getStudents().size());
 
-        // get proxy object
-        Student student = studentService.getById(studentId);
-        if (student == null)
+        // Check if the Student is exists
+        if (!studentService.existsById(studentId))
             throw new EntityNotExistsException("Student", Pair.of("studentId", studentId));
 
+        // get proxy object
+        Student student = studentService.getById(studentId);
         course.utility().addStudent(student);
+
         repository.save(course);
     }
 
