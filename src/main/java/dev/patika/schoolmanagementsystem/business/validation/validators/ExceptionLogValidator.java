@@ -13,6 +13,6 @@ public class ExceptionLogValidator {
     public static final Map<String, List<OperationType>> filterCriteriaPermissions =
             new HashMap<String, List<OperationType>>() {{
                 put(ExceptionLog_.EXCEPTION_TYPE, Collections.singletonList(OperationType.EQUAL));
-                put(ExceptionLog_.DATE, Collections.singletonList(OperationType.CONTAINS));
+                put(ExceptionLog_.DATE, Collections.singletonList(OperationType.EQUAL));
             }};
 }
