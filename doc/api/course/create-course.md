@@ -13,9 +13,7 @@ Creates a new Course.
     "code": "newCode1",
     "name": "newCourse1",
     "creditScore": 4,
-    "instructor": {
-        "id": 1
-    }
+    "instructorId": 2
 }
 ```
 
@@ -28,21 +26,22 @@ Creates a new Course.
 ```json
 {
     "success": true,
-    "data": {
-        "id": 4,
+    "message": "Resource(s) added successfully.",
+    "payload": {
+        "id": 11,
+        "createdDate": "2021-09-09T09:31:07.179Z",
+        "lastModifiedDate": "2021-09-09T09:31:07.179Z",
         "code": "newCode1",
         "name": "newCourse1",
         "creditScore": 4,
-        "instructor": {
-            "id": 1
-        }
+        "instructorId": 2
     }
 }
 ```
 
-**Header Examples** :
+**Header Values** :
 
-* **Location**: `/api/courses/:id`
+* **Location**: `/api/courses/11`
 
 ## Error Responses
 

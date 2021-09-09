@@ -20,7 +20,7 @@ Deletes the Instructor.
 ```json
 {
     "success": false,
-    "message": "No Records Found.",
+    "message": "The resource not found.",
     "errors": [
         "Instructor not found for parameters {id='55'}."
     ]

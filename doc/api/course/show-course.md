@@ -17,14 +17,15 @@ Returns a Course with the given id.
 ```json
 {
     "success": true,
-    "data": {
+    "message": " The request has been processed successfully.",
+    "payload": {
         "id": 1,
+        "createdDate": "2021-09-09T09:27:20.563Z",
+        "lastModifiedDate": "2021-09-09T09:27:20.563Z",
         "code": "code1",
         "name": "Course1",
-        "creditScore": 4,
-        "instructor": {
-            "id": 1
-        }
+        "creditScore": 7,
+        "instructorId": 1
     }
 }
 ```
@@ -37,9 +38,9 @@ Returns a Course with the given id.
 ```json
 {
     "success": false,
-    "message": "No Records Found.",
+    "message": "The resource not found.",
     "errors": [
-        "Student not found for parameters {id='55'}."
+        "Course not found for parameters {id='55'}."
     ]
 }
 ```

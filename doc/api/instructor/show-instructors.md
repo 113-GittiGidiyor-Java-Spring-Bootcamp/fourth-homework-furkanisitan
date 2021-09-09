@@ -8,7 +8,8 @@ Returns a list of Instructors.
 
 **Request Params**
 
-- `name=[String]` (optional) : Returns all students those containing the name.
+- `filter=[String]` (optional) : Filters instructors. 
+    - `name` => `ct`
 - `sort=[String]` (optional) : The field name to be sorted.
     - `fixedSalary` or `fixedSalary.asc`: Sorts in ascending order by 'fixedSalary' field.
     - `fixedSalary.desc`: Sorts in descending order by 'fixedSalary' field.
@@ -27,20 +28,25 @@ Returns a list of Instructors.
 ```json
 {
     "success": true,
-    "data": [
+    "message": " The request has been processed successfully.",
+    "payload": [
         {
             "id": 1,
-            "phoneNumber": "+905055557556",
+            "createdDate": "2021-09-09T09:27:20.547Z",
+            "lastModifiedDate": "2021-09-09T09:27:20.547Z",
+            "phoneNumber": "+905055557550",
             "name": "PI1",
             "address": "PI1Address",
-            "fixedSalary": 10123.78
+            "fixedSalary": 10000.00
         },
         {
-            "id": 2,
-            "phoneNumber": "+905055557555",
-            "name": "VS1",
-            "address": "VS1Address",
-            "hourlySalary": 75.53
+            "id": 6,
+            "createdDate": "2021-09-09T09:27:20.547Z",
+            "lastModifiedDate": "2021-09-09T09:27:20.547Z",
+            "phoneNumber": "+905055557560",
+            "name": "VR1",
+            "address": "VR1Address",
+            "hourlySalary": 55.19
         }
     ]
 }
@@ -71,6 +77,24 @@ Returns a list of Instructors.
             "address": "PI1Address",
             "fixedSalary": 10123.78
         }
+    ]
+}
+```
+
+## Error Responses
+
+**Code** : `400 BAD REQUEST`
+
+**Sample Request URL**
+`/api/instructors?filter=name<gt>PI`
+
+**Sample Response Body** : 
+```json
+{
+    "success": false,
+    "message": "Filter contains invalid or disallowed parameter(s).",
+    "errors": [
+        "The 'gt' operator is invalid or not supported for 'name' field."
     ]
 }
 ```

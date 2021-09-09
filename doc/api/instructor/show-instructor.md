@@ -17,12 +17,15 @@ Returns a Instructor with the given id.
 ```json
 {
     "success": true,
-    "data": {
+    "message": " The request has been processed successfully.",
+    "payload": {
         "id": 1,
-        "phoneNumber": "+905055557556",
+        "createdDate": "2021-09-09T09:27:20.547Z",
+        "lastModifiedDate": "2021-09-09T09:27:20.547Z",
+        "phoneNumber": "+905055557550",
         "name": "PI1",
         "address": "PI1Address",
-        "fixedSalary": 10123.78
+        "fixedSalary": 10000.00
     }
 }
 ```
@@ -35,7 +38,7 @@ Returns a Instructor with the given id.
 ```json
 {
     "success": false,
-    "message": "No Records Found.",
+    "message": "The resource not found.",
     "errors": [
         "Instructor not found for parameters {id='55'}."
     ]

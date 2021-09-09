@@ -44,7 +44,7 @@ Updates the Instructor.
     "success": false,
     "message": "An invalid entity type error has occurred.",
     "errors": [
-        "The type of the submitted model is not of type 'VisitingResearcher'."
+        "The type of the submitted model is not of type 'PermanentInstructor'."
     ]
 }
 ```
@@ -57,9 +57,9 @@ Updates the Instructor.
 ```json
 {
     "success": false,
-    "message": "No Records Found.",
+    "message": "The resource not found.",
     "errors": [
-        "PermanentInstructor not found for parameters {id='2'}."
+        "Instructor not found for parameters {id='55'}."
     ]
 }
 ```
@@ -74,7 +74,7 @@ Updates the Instructor.
     "success": false,
     "message": "A unique constraint error has occurred.",
     "errors": [
-        "'phoneNumber' must be unique. {rejectedValue: +905055557555}"
+        "'phoneNumber' must be unique. {rejectedValue: +905055557551}"
     ]
 }
 ```

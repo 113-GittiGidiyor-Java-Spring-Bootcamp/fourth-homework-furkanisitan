@@ -15,9 +15,7 @@ Updates the Course.
     "code": "updatecode1",
     "name": "updateCourse1",
     "creditScore": 4,
-    "instructor": {
-        "id": 2
-    }
+    "instructorId": 2
 }
 ```
 
@@ -33,7 +31,7 @@ Updates the Course.
 ```json
 {
     "success": false,
-    "message": "No Records Found.",
+    "message": "The resource not found.",
     "errors": [
         "Course not found for parameters {id='55'}."
     ]

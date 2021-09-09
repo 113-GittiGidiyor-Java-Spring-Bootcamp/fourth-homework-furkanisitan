@@ -20,7 +20,7 @@ Deletes the Course.
 ```json
 {
     "success": false,
-    "message": "No Records Found.",
+    "message": "The resource not found.",
     "errors": [
         "Course not found for parameters {id='55'}."
     ]

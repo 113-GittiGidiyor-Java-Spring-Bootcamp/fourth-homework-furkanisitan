@@ -13,7 +13,7 @@ Updates the Student.
 ```json
 {
     "name": "StudentUpdate1",
-    "address": "StudentAddress1",
+    "address": "StudentUpdateAddress1",
     "birthDate": "2000-01-21",
     "gender": "MALE"
 }
@@ -31,9 +31,24 @@ Updates the Student.
 ```json
 {
     "success": false,
-    "message": "No Records Found.",
+    "message": "The resource not found.",
     "errors": [
-        "Student not found for parameters {id='6'}."
+        "Student not found for parameters {id='55'}."
+    ]
+}
+```
+
+----
+
+**Code** : `400 BAD REQUEST`
+
+**Sample Response Body** : 
+```json
+{
+    "success": false,
+    "message": "A validation error has occurred.",
+    "errors": [
+        "Student age must be between 18 and 40."
     ]
 }
 ```

@@ -37,8 +37,11 @@ Creates a new Instructor.
 ```json
 {
     "success": true,
-    "data": {
-        "id": 3,
+    "message": "Resource(s) added successfully.",
+    "payload": {
+        "id": 11,
+        "createdDate": "2021-09-09T09:46:43.506Z",
+        "lastModifiedDate": "2021-09-09T09:46:43.506Z",
         "phoneNumber": "905057570001",
         "name": "newPI2",
         "address": "newPI2Address",
@@ -49,7 +52,7 @@ Creates a new Instructor.
 
 **Header Examples** :
 
-* **Location**: `/api/instructors/:id`
+* **Location**: `/api/instructors/11`
 
 ## Error Responses
 
@@ -61,7 +64,7 @@ Creates a new Instructor.
     "success": false,
     "message": "A unique constraint error has occurred.",
     "errors": [
-        "'phoneNumber' must be unique. {rejectedValue: +905055557555}"
+        "'phoneNumber' must be unique. {rejectedValue: 905057570001}"
     ]
 }
 ```

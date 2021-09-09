@@ -8,7 +8,8 @@ Returns a list of Students.
 
 **Request Params**
 
-- `name=[String]` (optional) : Returns all students those containing the name.
+- `filter=[String]` (optional) : Filters students. 
+    - `name` => `ct`
 
 ## Success Response
 
@@ -18,22 +19,45 @@ Returns a list of Students.
 
 ```json
 {
-  "success": true,
-  "data": [
-    {
-      "id": 1,
-      "name": "Student1",
-      "address": "StudentAddress1",
-      "birthDate": "2000-01-01",
-      "gender": "MALE"
-    },
-    {
-      "id": 2,
-      "name": "Student2",
-      "address": "StudentAddress2",
-      "birthDate": "2000-02-02",
-      "gender": "FEMALE"
-    }
-  ]
+    "success": true,
+    "message": " The request has been processed successfully.",
+    "payload": [
+        {
+            "id": 1,
+            "createdDate": "2021-09-09T09:27:20.563Z",
+            "lastModifiedDate": "2021-09-09T09:27:20.563Z",
+            "name": "Student1",
+            "address": "StudentAddress1",
+            "birthDate": "1999-03-03",
+            "gender": "MALE"
+        },
+        {
+            "id": 2,
+            "createdDate": "2021-09-09T09:27:20.563Z",
+            "lastModifiedDate": "2021-09-09T09:27:20.563Z",
+            "name": "Student2",
+            "address": "StudentAddress2",
+            "birthDate": "1984-06-22",
+            "gender": "FEMALE"
+        }
+    ]
+}
+```
+
+## Error Responses
+
+**Code** : `400 BAD REQUEST`
+
+**Sample Request URL**
+`/api/students?filter=nme<ct>Student1`
+
+**Sample Response Body** : 
+```json
+{
+    "success": false,
+    "message": "Filter contains invalid or disallowed parameter(s).",
+    "errors": [
+        "The 'nme' field is invalid or not supported for querying."
+    ]
 }
 ```

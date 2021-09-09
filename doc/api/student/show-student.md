@@ -17,11 +17,14 @@ Returns a Student with the given id.
 ```json
 {
     "success": true,
-    "data": {
+    "message": " The request has been processed successfully.",
+    "payload": {
         "id": 1,
+        "createdDate": "2021-09-09T09:27:20.563Z",
+        "lastModifiedDate": "2021-09-09T09:27:20.563Z",
         "name": "Student1",
         "address": "StudentAddress1",
-        "birthDate": "2000-01-01",
+        "birthDate": "1999-03-03",
         "gender": "MALE"
     }
 }
@@ -35,7 +38,7 @@ Returns a Student with the given id.
 ```json
 {
     "success": false,
-    "message": "No Records Found.",
+    "message": "The resource not found.",
     "errors": [
         "Student not found for parameters {id='55'}."
     ]

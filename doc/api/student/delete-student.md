@@ -20,7 +20,7 @@ Deletes the Student.
 ```json
 {
     "success": false,
-    "message": "No Records Found.",
+    "message": "The resource not found.",
     "errors": [
         "Student not found for parameters {id='55'}."
     ]

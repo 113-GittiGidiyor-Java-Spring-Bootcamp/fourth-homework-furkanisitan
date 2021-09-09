@@ -2,7 +2,7 @@
 
 Groups students by gender and returns gender counts.
 
-**URL** : `/api/students/genders`
+**URL** : `/api/students/gender-counts`
 
 **Method** : `GET`
 
@@ -15,13 +15,14 @@ Groups students by gender and returns gender counts.
 ```json
 {
     "success": true,
-    "data": [
+    "message": " The request has been processed successfully.",
+    "payload": [
         {
-            "count": 2,
+            "count": 11,
             "gender": "MALE"
         },
         {
-            "count": 2,
+            "count": 10,
             "gender": "FEMALE"
         }
     ]
